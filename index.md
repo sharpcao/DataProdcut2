@@ -1,0 +1,60 @@
+---
+title       : Shiny Homework
+subtitle    : Shanghai Index App
+author      : sharpcao
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Introduction
+
+This app is built to plot Shanghai Index (SSEC)
+
+**features**
+
+1. Choosing time range 
+2. Choosing plot type
+3. Y-Axis can be 'Normal' or 'Log'  
+
+---  
+
+![alt text](ShinyApp.png)
+
+---
+
+
+## Code
+
+```r
+library(quantmod)
+library(quantmod)
+getSymbols('^SSEC')
+DT <- data.frame(tm = time(SSEC),Close=as.numeric(SSEC$SSEC.Close))
+DT$year <- format(DT$tm,"%Y")
+DT$ym <- format(DT$tm,"%Y-%m")
+```
+
+---
+## Line Plot
+
+```r
+plot(Close~tm,data = DT,type="l",pch=19,log="y")
+```
+
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+
+---
+## Box Plot 
+
+```r
+boxplot(Close~year,data = DT,log="y")
+```
+
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
+
+
